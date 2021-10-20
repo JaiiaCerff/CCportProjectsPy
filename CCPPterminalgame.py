@@ -2,7 +2,7 @@
 import random
 
 
-words = ['the', 'and', 'ye', 'bing', 'bong']
+words = ['the', 'and', 'ye', 'bing', 'bong', 'boom']
 ll = 9
 win = random.randint(0,2)
 
