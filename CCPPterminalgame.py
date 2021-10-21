@@ -3,11 +3,11 @@ import random
 import sys
 import os
 
-
-
-words = ['the', 'and', 'yes', 'bing', 'bong', 'boom','big']
+file = open("/usr/share/dict/words","r")
+wordss = file.read().split('\n')
 ll = 9
-win = random.randint(0,len(words))
+win = random.randint(0,len(wordss))
+guessed = []
 
 #welcome
 
@@ -15,9 +15,9 @@ win = random.randint(0,len(words))
 
 def word_len():
     global win
-    global words
+    global wordss
     wordemp = []
-    for l in range(0,len(words[win])):
+    for l in range(0,len(wordss[win])):
         wordemp += ['_']
     return wordemp
 
@@ -35,6 +35,7 @@ def wordfin(t):
 
 
 def letterinword(l,word):
+    global guessed
     global ll
     newwordemp = temp
     if l == word:
@@ -48,13 +49,19 @@ def letterinword(l,word):
             if le==l:
                 newwordemp[i]=le
         print(newwordemp)
+        print(guessed)
+       
     else:
         if ll > 1:
             ll -= 1
             print('Oh no that letter is not in my word. You lose a life... you now have {x} lives left'.format(x=ll))
             print(temp)
+            if l not in guessed:
+                guessed += [l]
+                print(guessed)
         else:
             print('sorry you lose...')
+            print('the word was ' + wordss[win])
             fin('sorry you lose...')
     
     if wordfin(newwordemp) == True:
@@ -98,9 +105,10 @@ def hello():
         fin('')
 
     tempres = word_len()
-    for l in range(1,100):  
-        letterinword(input(),words[win])
-    
+    for l in range(1,100): 
+        inp = input()
+        letterinword(inp,wordss[win])
+        
 
 
 hello()
